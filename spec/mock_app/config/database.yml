@@ -1,0 +1,7 @@
+development: &development
+  adapter: sqlite3
+  database: vendor/plugins/streamer/spec/test.db
+  pool: 5
+  timeout: 5000
+
+test: *development
