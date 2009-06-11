@@ -8,7 +8,8 @@ require 'spec/rails'
 
 stdout = $stdout
 $stdout = StringIO.new
-require File.join(File.dirname(__FILE__), '..', 'schema.rb')
+ActiveRecord::Migrator.migrate(File.join(File.dirname(__FILE__), '..', '..', 'migrations'))
+ActiveRecord::Migrator.migrate(File.join(File.dirname(__FILE__), '..', 'mock_app', 'db', 'migrate'))
 $stdout = stdout
 
 Spec::Runner.configure do |config|
