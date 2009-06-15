@@ -2,6 +2,7 @@
   ActiveSupport::Dependencies.load_paths <<
     File.join(File.dirname(__FILE__), 'app', dir)
 end
+
 module Shouter
   class <<self
     def included(base)
@@ -22,7 +23,7 @@ module Shouter
       lifecycle_event = options[:on] ||
         raise(ArgumentError, ":on option must be provided for shout")
       send("after_#{lifecycle_event}") do |shoutable|
-        Shouter::Event.process(shoutable, event_name, options)
+        Shouter::EventBuilder.build(shoutable, event_name, options)
       end
       if options[:copy_fields] && options[:on].to_sym == :create
         before_update do |shoutable|
