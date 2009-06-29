@@ -20,6 +20,10 @@ module Shouter
 
   module ActsAsMethods
     def shout(event_name, options = {})
+      unless is_a?(ClassMethods)
+        extend(ClassMethods)
+        include(InstanceMethods)
+      end
       after_create do |shoutable|
         Shouter::EventBuilder.build(shoutable, event_name, options)
       end
@@ -34,6 +38,19 @@ module Shouter
           end
         end
       end
+    end
+  end
+
+  module ClassMethods
+    has_many :shouter_events, :class_name => 'Shouter::Event', :as => :shoutable
+  end
+
+  module InstanceMethods
+    def last_activity_at
+      shouter_events.first(
+        :select => 'shouter_events.updated_at',
+        :order => 'updated_at DESC'
+      ).updated_at
     end
   end
 end
