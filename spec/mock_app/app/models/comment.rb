@@ -1,6 +1,5 @@
 class Comment < ActiveRecord::Base
-  shout :commented, :on => :create,
-                    :target => :commentable,
+  shout :commented, :target => :commentable,
                     :actor => :user,
                     :owners => proc { |comment| comment.commentable.users }
 

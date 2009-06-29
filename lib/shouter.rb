@@ -20,12 +20,10 @@ module Shouter
 
   module ActsAsMethods
     def shout(event_name, options = {})
-      lifecycle_event = options[:on] ||
-        raise(ArgumentError, ":on option must be provided for shout")
-      send("after_#{lifecycle_event}") do |shoutable|
+      after_create do |shoutable|
         Shouter::EventBuilder.build(shoutable, event_name, options)
       end
-      if options[:copy_fields] && options[:on].to_sym == :create
+      if options[:copy_fields]
         before_update do |shoutable|
           update_attributes = {}
           options[:copy_fields].each do |copy_field|

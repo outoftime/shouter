@@ -2,8 +2,7 @@ class Post < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_many :photo_attachments, :as => :target
 
-  shout :post_created, :on => :create,
-                       :actors => :users,
+  shout :post_created, :actors => :users,
                        :copy_fields => [:published_at]
 
   def photos
