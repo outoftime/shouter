@@ -21,6 +21,7 @@ module Shouter
   module ActsAsMethods
     def shout(event_name, options = {})
       unless is_a?(ClassMethods)
+        has_many :shouter_events, :class_name => 'Shouter::Event', :as => :target
         extend(ClassMethods)
         include(InstanceMethods)
       end
@@ -42,7 +43,6 @@ module Shouter
   end
 
   module ClassMethods
-    has_many :shouter_events, :class_name => 'Shouter::Event', :as => :shoutable
   end
 
   module InstanceMethods
