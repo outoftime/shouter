@@ -1,0 +1,6 @@
+= Shouter
+
+Shouter is a flexible activity tracking plugin for Rails. It's currently under
+development.
+
+Copyright (c) 2009 Mat Brown, released under the MIT license
