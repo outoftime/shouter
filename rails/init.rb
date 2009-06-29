@@ -1,3 +1,1 @@
-ActiveRecord::Base.module_eval do
-  include Shouter
-end
+ActiveRecord::Base.module_eval { extend Shouter::ActsAsMethods }

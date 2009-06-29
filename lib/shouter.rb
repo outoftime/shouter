@@ -5,10 +5,6 @@ end
 
 module Shouter
   class <<self
-    def included(base)
-      base.module_eval { extend Shouter::ActsAsMethods }
-    end
-
     def proc_call(object, block)
       if block.respond_to?(:call)
         block.call(object)
