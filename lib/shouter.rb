@@ -43,10 +43,12 @@ module Shouter
 
   module InstanceMethods
     def last_activity_at
-      shouter_events.first(
+      if last_event = shouter_events.first(
         :select => 'shouter_events.updated_at',
         :order => 'updated_at DESC'
-      ).updated_at
+      )
+        last_event.updated_at
+      end
     end
   end
 end
